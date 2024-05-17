@@ -5,8 +5,11 @@
 @tailwind utilities;
 
 
-html,body,
-#app{
-  width: 100%;
+html, body, #app {
+  height: 100%;
+}
+.v-application__wrap {
+  display: block !important;
+  min-height: auto;
   height: 100%;
 }

@@ -1,7 +1,7 @@
 <template>
-  <div class="h-full">
+  <v-app class="h-full">
     <router-view/>
-  </div>
+  </v-app>
 
 </template>
 
