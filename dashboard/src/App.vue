@@ -1,7 +1,5 @@
 <template>
   <div class="h-full">
-      <nav class="m-2 bg-blue">
-      </nav>
     <router-view/>
   </div>
 
