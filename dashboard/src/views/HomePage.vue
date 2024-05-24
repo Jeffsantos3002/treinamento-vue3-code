@@ -4,6 +4,7 @@
     @create-account="handleAccountCreate"
     @login="handleLogin"
   />
+  <factory-modal type="login"/>
   <contact />
   <div class="flex justify-center py-10 bg-brand-gray">
     <p class="font-medium text-center text-gray-800">feedbacker © 2021</p>
@@ -15,6 +16,7 @@ import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import CustomHeader from '@/components/Home/CustomHeader.vue'
 import Contact from '@/components/Home/Contact.vue'
+import FactoryModal from '@/components/ModalFactory/FactoryModal.vue'
 // import useModal from '../../hooks/useModal'
 
 const router = useRouter()

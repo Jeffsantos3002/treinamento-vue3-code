@@ -3,8 +3,12 @@
     <nav class="flex flex-row w-full justify-between">
       <img :src="logo" alt="logo">
       <div class="flex flex-row items-center space-x-6 text-lg hidden md:flex">
-        <p>Crie uma conta</p>
-        <button class="rounded-full bg-slateblue-50 text-brand-main px-4 ">Entrar</button>
+        <factory-modal actionName="create-account">
+          <p>Crie uma conta</p>
+        </factory-modal>
+        <factory-modal actionName="login">
+          <button class="rounded-full bg-slateblue-50 text-brand-main px-4 ">Entrar</button>
+        </factory-modal>
       </div>
       <v-app-bar-nav-icon variant="text" @click.stop="drawer = !drawer" class="md:hidden"></v-app-bar-nav-icon>
     </nav>
@@ -14,11 +18,15 @@
         temporary
       >
         <v-list>
-          <v-list-item>
-            <p class="text-brand-main">Crie uma conta</p>
+          <v-list-item class="p-0">
+            <factory-modal actionName="create-account">
+              <p class="text-brand-main  text-2xl ">Crie uma conta</p>
+            </factory-modal>
           </v-list-item>
-          <v-list-item>
-            <button class="rounded-full bg-brand-main text-slateblue-50 px-4 ">Entrar</button>
+          <v-list-item class="p-0">
+            <factory-modal actionName="login">
+              <button class="rounded-full bg-brand-main text-slateblue-50 px-4 text-2xl ">Entrar</button>
+            </factory-modal>
           </v-list-item>
         </v-list>
       </v-navigation-drawer>
@@ -35,6 +43,7 @@
 <script setup>
 import { ref } from 'vue'
 import logo from '../../assets/dashboard/logo_white-1.svg'
+import FactoryModal from '../ModalFactory/FactoryModal.vue'
 
 const drawer = ref(false)
 </script>
