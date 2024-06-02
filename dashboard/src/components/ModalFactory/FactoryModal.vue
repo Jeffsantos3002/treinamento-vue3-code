@@ -1,14 +1,14 @@
 <!-- FactoryModal.vue -->
 <template>
-  <div class="text-center pa-4">
+  <div class="text-center">
     <button @click="showDialog
   ">
       <slot></slot>
     </button>
 
-    <v-dialog v-model="dialog" width="auto">
-      <v-card max-width="400">
-          <v-icon class="flex absolute right-0 top-8" icon="mdi-close" color="grey" @click="showDialog
+    <v-dialog v-model="dialog" max-width="544">
+      <v-card class="pb-8 pt-2 px-2">
+          <v-icon class="w-full flex items-end m-0 justify-end " icon="mdi-close" color="grey" @click="showDialog
         " end></v-icon>
         <component :is="modalComponent" />
       </v-card>
