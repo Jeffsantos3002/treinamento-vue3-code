@@ -38,7 +38,6 @@
           {{ state.password.errorMessage }}
         </span>
       </label>
-
       <button
         id="submit-button"
         :disabled="state.isLoading"
@@ -59,17 +58,24 @@
 
 import { ref } from 'vue'
 import { checkEmail, checkPassword } from '@/utils/validators'
+import services from '@/services'
+import { useRouter } from 'vue-router'
+import { useToast } from 'vue-toastification'
+import icon from '../Icon'
 
+const toast = useToast()
+const router = useRouter()
 // Estado inicial usando ref
 const state = ref({
   isLoading: false,
+  hasError: false,
   email: {
-    value: '',
-    errorMessage: ''
+    value: null,
+    errorMessage: null
   },
   password: {
-    value: '',
-    errorMessage: ''
+    value: null,
+    errorMessage: null
   }
 })
 
@@ -82,8 +88,55 @@ const validateEmail = () => {
 const validatePassword = () => {
   state.value.password.errorMessage = checkPassword(state.value.password.value)
 }
-const handlesubimit = () => {
+
+const hasValidationErrors = () => {
   validateEmail()
   validatePassword()
+  if (state.value.password.errorMessage || state.value.email.errorMessage) {
+    console.log('os dois são verdadeiros: ', state.value.password.errorMessage, state.value.email.errorMessage)
+    return false
+  } else {
+    console.log(state.value.password.errorMessage, state.value.email.errorMessage)
+    return true
+  }
+}
+
+const handlesubimit = async () => {
+  validateEmail()
+  validatePassword()
+
+  if (!hasValidationErrors()) {
+    return
+  }
+
+  try {
+    toast.clear()
+    state.value.isLoading = true
+    const { data, errors } = await services.auth.login({
+      email: state.value.email.value,
+      password: state.value.password.value
+    })
+
+    if (!errors) {
+      window.localStorage.setItem('token', data.token)
+      router.push({ name: 'Feedbacks' })
+      state.value.isLoading = false
+      return
+    }
+    if (errors.status === 404) {
+      toast.error('E-mail não encontrado')
+      state.value.isLoading = false
+    } if (errors.status === 401) {
+      toast.error('E-mail ou senha inválidos')
+      state.value.isLoading = false
+    } if (errors.status === 400) {
+      toast.error('Ocorreu um erro ao fazer o login')
+      state.value.isLoading = false
+    }
+  } catch (error) {
+    state.value.isLoading = false
+    state.value.hasError = !!error
+    toast.error('Ocorreu um erro ao fazer o login')
+  }
 }
 </script>

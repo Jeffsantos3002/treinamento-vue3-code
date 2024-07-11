@@ -1,5 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 
 <template>
-  <div></div>
+  <div>
+    <h1>feedbacks</h1>
+  </div>
 </template>

@@ -14,7 +14,7 @@ export function checkEmail (email) {
 export function checkPassword (password) {
   if (!password) {
     return 'Campo Obrigatório'
-  } else if (password.length < 5) {
+  } else if (password.length < 4) {
     return 'Senha inválida'
   } else {
     return false
