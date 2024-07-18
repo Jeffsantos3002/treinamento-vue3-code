@@ -1,5 +1,5 @@
 <template>
-  <header class="bg-brand-main text-white font-black h-4/5 bg-balloonBlue  md:bg-[length:520px] bg-right-bottom bg-no-repeat">
+  <header class="bg-brand-main text-white font-black h-4/5 bg-balloonBlue  md:bg-[length:520px] bg-right-bottom bg-no-repeat p-8">
     <nav class="flex flex-row w-full justify-between">
       <img :src="logo" alt="logo">
       <div class="flex flex-row items-center space-x-6 text-lg hidden md:flex">

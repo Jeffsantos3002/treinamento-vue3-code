@@ -5,24 +5,23 @@
 
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script setup>
+import { watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import services from './services'
 
-nav {
-  padding: 30px;
-}
+const router = useRouter()
+const route = useRoute()
 
-nav a {
-  font-weight: bold;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
+watch(() => route.path, async () => {
+  if (route.meta.hasAuth) {
+    const token = window.localStorage.getItem('token')
+    if (!token) {
+      router.push({ name: 'Home' })
+      return
+    }
+    const { data } = await services.users.getMe()
+    console.log('data: ', data)
+  }
+})
+</script>
